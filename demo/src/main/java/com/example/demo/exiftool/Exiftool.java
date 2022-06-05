@@ -19,11 +19,7 @@ public class Exiftool {
 
     @PostConstruct
     public void init() {
-        Optional<String> pathOptional = getExifToolPath();
-        if (!pathOptional.isPresent()) {
-            return;
-        }
-        String path = pathOptional.get();
+        String path = getExifToolPath().orElse("exiftool");
         try {
             exifTool = new ExifToolBuilder().withPath(path).enableStayOpen().build();
         } catch (UnsupportedFeatureException ex) {
